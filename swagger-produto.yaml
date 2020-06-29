@@ -1,0 +1,211 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  version: "1.0.0"
+  title: "Swagger Agendamento"
+host: "localhost:8080"
+basePath: "/v1"
+tags:
+  - name: "agendamento"
+    description: "Everything about your Produto"
+schemes:
+  - "https"
+  - "http"
+paths:
+  /agendamento:
+    post:
+      tags:
+        - "agendamento"
+      summary: "Add a new produto to the store"
+      description: ""
+      operationId: "createAgendamento"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Produto object that needs to be added to the store"
+          required: true
+          schema:
+            $ref: "#/definitions/Agendamento"
+      responses:
+        "201":
+          description: "Create"
+          schema:
+            $ref: "#/definitions/Response"
+        "404":
+          description: "Invalid input"
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Internal Serve error"
+          schema:
+            $ref: "#/definitions/Error"
+    put:
+      tags:
+        - "agendamento"
+      summary: "Add a new produto to the store"
+      description: ""
+      operationId: "updateAgendamento"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Produto object that needs to be added to the store"
+          required: true
+          schema:
+            $ref: "#/definitions/Agendamento"
+      responses:
+        "201":
+          description: "Update"
+        "404":
+          description: "Invalid input"
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Internal Serve error"
+          schema:
+            $ref: "#/definitions/Error"
+    delete:
+      tags:
+        - "agendamento"
+      summary: "Add a new produto to the store"
+      description: ""
+      operationId: "deleteByIdAgendamento"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "idAgendamento"
+          in: "query"
+          description: "The user name for login"
+          required: true
+          type: "string"
+      responses:
+        "201":
+          description: "Update"
+        "404":
+          description: "Invalid input"
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Internal Serve error"
+          schema:
+            $ref: "#/definitions/Error"
+    get:
+      tags:
+        - "agendamento"
+      summary: "Add a new produto to the store"
+      description: ""
+      operationId: "findAllAgendamento"
+      produces:
+        - "application/json"
+      responses:
+        "201":
+          description: "Find All"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Agendamento"
+        "404":
+          description: "Invalid input"
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Internal Serve error"
+          schema:
+            $ref: "#/definitions/Error"
+  /agendamento/findByDac:
+    get:
+      tags:
+        - "agendamento"
+      summary: "Add a new produto to the store"
+      description: ""
+      operationId: "findByDac"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "agencia"
+          in: "query"
+          description: "Numero da agencia"
+          required: true
+          type: "string"
+        - name: "conta"
+          in: "query"
+          description: "Numero da conta"
+          required: true
+          type: "string"
+        - name: "digito"
+          in: "query"
+          description: "Numero digito verificador"
+          required: true
+          type: "string"
+      responses:
+        "201":
+          description: "Find By DAC"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Agendamento"
+        "404":
+          description: "Invalid input"
+          schema:
+            $ref: "#/definitions/Error"
+        "500":
+          description: "Internal Serve error"
+          schema:
+            $ref: "#/definitions/Error"
+definitions:
+  Agendamento:
+    type: "object"
+    required:
+      - "idSistemaProduto"
+      - "idCanal"
+      - "dataEfetivacao"
+    properties:
+      id:
+        type: "string"
+      idSistemaProduto:
+        type: "string"
+      idCanal:
+        type: "string"
+      antecipaPosterga:
+        type: "boolean"
+      dataEfetivacao:
+        type: "string"
+      retentativa:
+        type: "boolean"
+      debito:
+        $ref: "#/definitions/Debito"
+  Debito:
+    type: "object"
+    required:
+      - "agencia"
+      - "conta"
+      - "dac"
+      - "valor"
+    properties:
+      agencia:
+        type: "string"
+      conta:
+        type: "string"
+      dac:
+        type: "string"
+      valor:
+        type: "number"
+  Response:
+    type: "object"
+    properties:
+      idAgendamento:
+        type: "string"
+  Error:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+      message:
+        type: "string"
