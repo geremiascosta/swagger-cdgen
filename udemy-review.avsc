@@ -1,0 +1,11 @@
+{
+    "type": "record",
+    "namespace": "com.message.model",
+    "name": "Custome",
+    "version": "1.0",
+    "fields": [
+      {"name": "title",  "type": "string"},
+      {"name": "name",  "type": "string", "doc": "first name"},
+      {"name": "display_name",  "type": "string"}
+    ]
+}
